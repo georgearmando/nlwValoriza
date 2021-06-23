@@ -8,13 +8,9 @@ class CreateUserController {
 
     const createUserService = new CreateUserService();
 
-    try {
-      const user = await createUserService.execute({ name, email, admin });
+    const user = await createUserService.execute({ name, email, admin });
 
-      return response.status(201).json(user);
-    } catch (error) {
-      return response.status(400).json({ error: error.message });
-    }
+    return response.status(201).json(user);
   }
 }
 
