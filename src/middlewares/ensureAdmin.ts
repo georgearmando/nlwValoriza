@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { AppError } from '../errors/AppErrors';
+
 export function ensureAdmin(
   request: Request,
   response: Response,
@@ -7,11 +9,9 @@ export function ensureAdmin(
 ) {
   const admin = true;
 
-  if (admin) {
-    return next();
+  if (!admin) {
+    throw new AppError('Unauthorized', 401);
   }
 
-  return response.status(401).json({
-    error: 'Unauthorized',
-  });
+  next();
 }
